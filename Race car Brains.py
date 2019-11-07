@@ -8,7 +8,7 @@ def turn_right(down):
     print('right')
 
 def up_pressed(down):
-    global up
+    global up,accelerating
     accelerating = True
 
 def down_pressed(down):
@@ -18,34 +18,36 @@ def down_pressed(down):
 def coast():
     global acceleration, velocity
     acceleration = 0
-    velocity -= 0.1
+    if velocity > 0:
+        velocity -= 0.1
+    else:
+        velocity += 0.1
     time.sleep(0.1)
 
-def accelerate(down):
+def accelerate():
     global velocity, acceleration, accelerating
-    accelerating == True
+    accelerating = True
     acceleration = 0.2
     velocity += acceleration
     time.sleep(0.1)
     print("up")
     
-def brake(down):
-    global  velocity, acceleration
+def brake():
+    global  velocity, acceleration, accelerating, braking
     acceleration = 0
     if velocity <= 0:
         velocity-= 3
-#    else:
-#        acceleration-=0.2
-#        velocity+=acceleration
-    print("down")
     accelerating == False
     time.sleep(0.2)
 
 def main():
     global velocity, acceleration, accelerating, braking    
     acceleration = 0
+    accelerating = False
+    braking = False
+    
     Height = 795
-    Width = 500
+    Width = 1500
     x = Width/2
     y = Height/2
     velocity = 0
@@ -58,10 +60,16 @@ def main():
     while True:
         print(velocity)
         x = x + velocity
-        if accelerating == False:
+        
+        if accelerating == True:
+            accelerate()
+            
+        elif braking == True:
+            brake()
+
+        else:
             coast()
-        if down_pressed == False:
-            pass
+            
         if x >= Width or y >= Height:
             velocity = 0
             acceleration = 0
