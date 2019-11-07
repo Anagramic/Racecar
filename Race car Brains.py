@@ -13,7 +13,7 @@ def up_pressed(down):
 
 def down_pressed(down):
     print("down")
-    global down_arow, barking
+    global down_arow, braking
     braking = True
 
 def coast():
@@ -42,6 +42,7 @@ def brake():
         velocity = 0
     accelerating == False
     time.sleep(0.1)
+    braking = False
     print("Braking")
 
 def main():
