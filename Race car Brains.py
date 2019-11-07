@@ -36,7 +36,7 @@ def accelerate():
 def brake():
     global  velocity, acceleration, accelerating, braking
     acceleration = 0
-    if velocity >= 0:
+    if velocity > 0:
         velocity-= 3
     elif velocity <= 0:
         velocity = 0
