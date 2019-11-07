@@ -12,7 +12,7 @@ def up_pressed(down):
     accelerating = True
 
 def down_pressed(down):
-    print("down")
+#    print("down")
     global down_arow, braking
     braking = True
 
@@ -36,7 +36,7 @@ def accelerate():
     acceleration = zero_to_sixty
     velocity += acceleration
     time.sleep(0.1)
-    print("Accelerating")
+#    print("Accelerating")
     
 def brake():
     global  velocity, acceleration, accelerating, braking
@@ -48,7 +48,7 @@ def brake():
     accelerating == False
     time.sleep(0.1)
     braking = False
-    print("Braking")
+#    print("Braking")
 
 def main():
     global velocity, acceleration, accelerating, braking, zero_to_sixty    
@@ -68,7 +68,7 @@ def main():
     canvas.pack()
 
     while True:
-        print(velocity)
+#        print(velocity)
         x = x + velocity
 
         if accelerating == True:
@@ -82,8 +82,8 @@ def main():
             coast()
             
         if x >= Width or y >= Height:
-            velocity = 0
-            acceleration = 0
+             x = -x
+             acceleration = 0
         tk.bind("<Left>", turn_left)
         tk.bind("<Right>", turn_right)
         tk.bind("<Up>", up_pressed)
