@@ -12,7 +12,8 @@ def up_pressed(down):
     accelerating = True
 
 def down_pressed(down):
-    global down_arow
+    print("down")
+    global down_arow, barking
     braking = True
 
 def coast():
@@ -30,25 +31,27 @@ def accelerate():
     acceleration = 0.2
     velocity += acceleration
     time.sleep(0.1)
-    print("up")
+    print("Accelerating")
     
 def brake():
     global  velocity, acceleration, accelerating, braking
     acceleration = 0
-    if velocity <= 0:
+    if velocity >= 0:
         velocity-= 3
+    elif velocity <= 0:
+        velocity = 0
     accelerating == False
-    time.sleep(0.2)
+    time.sleep(0.1)
+    print("Braking")
 
 def main():
     global velocity, acceleration, accelerating, braking    
     acceleration = 0
     accelerating = False
-    braking = False
-    
+    braking = False  
     Height = 795
     Width = 1500
-    x = Width/2
+    x = 0
     y = Height/2
     velocity = 0
     tk = Tk()
@@ -60,10 +63,11 @@ def main():
     while True:
         print(velocity)
         x = x + velocity
-        
+
         if accelerating == True:
             accelerate()
-            
+            accelerating = False
+
         elif braking == True:
             brake()
 
@@ -81,7 +85,7 @@ def main():
         point = canvas.create_oval(x,y, x + pointsize, y + pointsize, fill = '#000000' )
 
         canvas.update()
-        canvas.after(3)
+        canvas.after(2)
         canvas.delete(point)
         
 
