@@ -1,10 +1,17 @@
 from tkinter import *
 import time
+import math
 
 def turn_left(down):
+    global turning_left, turning_right
+    turning_right = False
+    turning_left = True
     print('left')
 
 def turn_right(down):
+    global turning_left, turning_right
+    turing_left = False
+    turning_right = True
     print('right')
 
 def up_pressed(down):
@@ -51,7 +58,11 @@ def brake():
 #    print("Braking")
 
 def main():
-    global velocity, acceleration, accelerating, braking, zero_to_sixty    
+    global velocity, acceleration, accelerating, braking, zero_to_sixty, turning_left, turning_right
+    direction = 0
+    turning_radius = 1
+    turning_left = False
+    turning_right = False
     acceleration = 0
     accelerating = False
     braking = False
@@ -69,7 +80,10 @@ def main():
 
     while True:
 #        print(velocity)
-        x = x + velocity
+        dx = velocity*math.acos(math.radians(direction))
+        dy = velocity*math.asin(math.radians(direction))
+        x = x + dx
+        y = y + dy
 
         if accelerating == True:
             accelerate()
@@ -80,10 +94,17 @@ def main():
 
         else:
             coast()
-            
+
+        if turning_left == True:
+            direction -= turning_radius
+
+        if turning_right == True:
+            direction += turning_radius
+        
         if x >= Width or y >= Height:
              x = -x
              acceleration = 0
+             
         tk.bind("<Left>", turn_left)
         tk.bind("<Right>", turn_right)
         tk.bind("<Up>", up_pressed)
@@ -96,7 +117,4 @@ def main():
         canvas.delete(point)
         
 
-
-
-    
 main()
