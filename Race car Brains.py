@@ -1,21 +1,42 @@
 from tkinter import *
 import time
 import math
+def create_track():
+    create_grid()
 
+def reset():
+    global acceletration, velocity, direction, x, y
+    acceleration = 0
+    velocity = 0
+    x = 0
+    y = Height/2
+
+
+def create_grid():
+    global grid_sxf, grid_ysf
+    grid_xsf = Width/200
+    grid_ysf = Height/200
+
+def grid(grid_position_x, grid_position_y):
+    x = grid_position_x * grid_sfx
+    y = grid_position_y * grid_sfy
+    return(x,y)
+    
 def turn_left(down):
     global turning_left, turning_right
     turning_right = False
     turning_left = True
-    print('left')
+#    print('left')
 
 def turn_right(down):
     global turning_left, turning_right
     turing_left = False
     turning_right = True
-    print('right')
+#    print('right')
 
 def up_pressed(down):
     global up,accelerating
+    
     accelerating = True
 
 def down_pressed(down):
@@ -58,7 +79,7 @@ def brake():
 #    print("Braking")
 
 def main():
-    global velocity, acceleration, accelerating, braking, zero_to_sixty, turning_left, turning_right
+    global velocity, acceleration, accelerating, braking, zero_to_sixty, turning_left, turning_right, Width, Height
     direction = 0
     turning_radius = 5
     turning_left = False
@@ -69,12 +90,11 @@ def main():
     zero_to_sixty = 0.2
     Height = 795
     Width = 1500
-    grid_xsf = Width/100
-    grid_ysf = Height/100
 #staring location
     x = 0
     y = Height/2
 
+    create_track()
     dx = 0
     dy = 0
     velocity = 0
@@ -83,6 +103,8 @@ def main():
     tk.title('Brains')
     canvas = Canvas(height = Height, width = Width, bg = 'white')
     canvas.pack()
+    create_track()
+    
 
     while True:
 #        print('--------------------------------------------------------------------------------')
@@ -126,6 +148,7 @@ def main():
         tk.bind("<Right>", turn_right)
         tk.bind("<Up>", up_pressed)
         tk.bind("<Down>", down_pressed)
+        tk.bind("<Space>", reset)
         
         arrow = canvas.create_line(x,y,x+(dx*5),y+(dy*5),fill = '#000000')
         point = canvas.create_oval(x,y, x + pointsize, y + pointsize, fill = '#000000' )
