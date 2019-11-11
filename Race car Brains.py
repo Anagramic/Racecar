@@ -92,6 +92,10 @@ def main():
 #        print('dx: '+str(dx))
 #        print('dy: '+str(dy))
 #        print('Direction: '+str(direction))
+        if x >= Width or y >= Height:
+             velocity = 0  
+             acceleration = 0
+             
         dx = velocity*math.cos(math.radians(direction))
         dy = velocity*math.sin(math.radians(direction))
         x = x + dx
@@ -99,6 +103,7 @@ def main():
 #        print(x)
 #        print(y)
 
+             
         if accelerating == True:
             accelerate()
             accelerating = False
@@ -116,11 +121,7 @@ def main():
             direction += turning_radius
             turning_right = False       
 
-        if x >= Width or y >= Height:
-             x = 0
-             y = 0
-             acceleration = 0
-             
+
         tk.bind("<Left>", turn_left)
         tk.bind("<Right>", turn_right)
         tk.bind("<Up>", up_pressed)
