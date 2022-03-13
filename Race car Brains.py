@@ -13,13 +13,13 @@ def reset():
 
 
 def create_grid():
-    global grid_sxf, grid_ysf
+    global grid_xsf, grid_ysf
     grid_xsf = Width/200
     grid_ysf = Height/200
 
 def grid(grid_position_x, grid_position_y):
-    x = grid_position_x * grid_sfx
-    y = grid_position_y * grid_sfy
+    x = grid_position_x * grid_xsf
+    y = grid_position_y * grid_ysf
     return(x,y)
     
 def turn_left(down):
@@ -148,7 +148,7 @@ def main():
         tk.bind("<Right>", turn_right)
         tk.bind("<Up>", up_pressed)
         tk.bind("<Down>", down_pressed)
-        tk.bind("<Space>", reset)
+        tk.bind("<space>", reset)
         
         arrow = canvas.create_line(x,y,x+(dx*5),y+(dy*5),fill = '#000000')
         point = canvas.create_oval(x,y, x + pointsize, y + pointsize, fill = '#000000' )
